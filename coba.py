@@ -1,5 +1,8 @@
 import subprocess
 import time
+import os
+
+os.environ["LIBNFC_INTRUSIVE_SCAN"] = "true"
 
 def nfc_raw():
     lines=subprocess.check_output("/usr/bin/nfc-poll", stderr=open('/dev/null','w'))
@@ -19,17 +22,16 @@ try:
                 pass
             else:
                 buffer.append(line_content)
-#         for dum in range(4):
-#             buffer.append(dum)
+
         str=buffer[0]
         id_str=[]
+        
         for i in range(2,len(str)):
             id_str.append(str[i])
-        #id_str=str[2]+" "+str[3]+" "+str[4]+" "+str[5]+" "+str[6]+" "+str[7]+" "+str[8]
+            
         uid="".join(id_str)
         print ("UID adalah : {}").format(uid)
-        #print (myLines)
-        print (buffer)
+        #print (buffer)
 
 
 except KeyboardInterrupt:
